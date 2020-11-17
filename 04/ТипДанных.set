@@ -1,0 +1,2 @@
+default_format "%,;%.6rw"
+data_structure	FUNC	string		"final_int:%.2p"

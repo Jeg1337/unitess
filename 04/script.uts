@@ -1,0 +1,57 @@
+
+ScriptVersion 1.0.0
+#
+
+math mem_1 = 0
+
+# вызов функции
+
+call	FUNC		1
+call	FUNC		2
+call	FUNC		3
+call	FUNC		4
+call	FUNC		5			#uhesh(testtt)
+
+
+
+EndScript
+
+
+###############################################################
+########################### ФУНКЦИИ ###########################
+###############################################################
+
+
+# 						arg1
+Function	FUNC		mem_3
+	math mem_1 = mem_1 + 1
+EndFunction
+
+###############################################################
+######################### ПРЕРЫВАНИЯ ##########################
+###############################################################
+
+
+# asdas
+Interrupt	before	FUNC	argument_change_1
+	if mem_3 = 4
+		message mem_2 select=(1;2) defvalue=1 "Выполнить функцию в пятый раз?\n1.да\n2.нет\n"
+		if TestResult = 0
+			Tree Disable testtt
+		endif
+	endif
+EndInterrupt
+
+
+# last in script
+Interrupt	after	FUNC	last_in_script
+	if mem_1 = 4
+		Message "функция была выполнена 4 раза"
+	else
+		Message "функция была выполнена 5 раз"
+	endif
+	message mem_4 checksyntax "Введите число в диапазоне от 1000 до 5000"
+	mem_5 = mem_1 * mem_4
+	# в отчет:					final_int
+	report			FUNC		mem_5
+EndInterrupt
